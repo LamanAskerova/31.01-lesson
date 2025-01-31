@@ -10,9 +10,11 @@ internal class DataContext
     private int _farmerIndex = 0;
     private int _farmIndex = 0;
 
+    #region  Animals
+
     public void AddAnimal()
     {
-        Console.BackgroundColor= ConsoleColor.DarkBlue;
+        Console.BackgroundColor = ConsoleColor.DarkBlue;
         Console.Write("Enter name of animal : ");
         string name = Console.ReadLine();
         Console.Write("Enter Farm name : ");
@@ -73,4 +75,54 @@ internal class DataContext
             Console.WriteLine(new string('-', 70));
         }
     }
+    #endregion
+
+    public void AddFarmer()
+    {
+        Console.Write("Firstname:");
+        string firstName = Console.ReadLine();
+        Console.Write("Lastname:");
+        string lastName = Console.ReadLine();
+        Console.Write("Age:");
+        int age = int.Parse(Console.ReadLine());
+        Console.Write("Subject:");
+        string subject = Console.ReadLine();
+
+        var farmer  = new Teacher(firstName, lastName, age, subject, _teacherIndex);
+        Teachers[_teacherIndex++] = teacher;
+    }
+
+    public void PrintTeachers()
+    {
+        Console.WriteLine(new string('-', 65));
+        Console.WriteLine($"{"Firstname",-20}{"Lastname",-20}{"Age",-5}{"Subject",-20}");
+
+        for (int i = 0; i < _teacherIndex; i++)
+        {
+            var teacher = Teachers[i];
+            Console.WriteLine($"{teacher.FirstName,-20}{teacher.LastName,-20}{teacher.Age,-5}{teacher.Subject,-20}");
+        }
+        Console.WriteLine(new string('-', 65));
+    }
+
+    public void PrintTeacher()
+    {
+        Console.Write("Enter the teacher id:");
+        string idInString = Console.ReadLine();
+
+        Console.WriteLine(new string('-', 65));
+
+        if (!int.TryParse(idInString, out int id) || !(id >= 0 && id < _teacherIndex))
+        {
+            Console.WriteLine("Not found");
+            return;
+        }
+
+        Console.WriteLine($"{"Firstname",-20}{"Lastname",-20}{"Age",-5}{"Subject",-20}");
+
+        var teacher = Teachers[id];
+        Console.WriteLine($"{teacher.FirstName,-20}{teacher.LastName,-20}{teacher.Age,-5}{teacher.Subject,-20}");
+        Console.WriteLine(new string('-', 65));
+    }
 }
+
